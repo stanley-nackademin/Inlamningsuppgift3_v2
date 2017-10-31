@@ -1,24 +1,12 @@
 package com.nackademin.brickgame;
 
 import javax.swing.*;
-import java.util.Arrays;
-import java.util.List;
 
 public class BrickBoard extends JPanel {
     protected final static int ROW = 4;
     protected final static int COLUMN = 4;
     private Brick[][] board;
     private Brick[][] solutionBoard;
-    protected Brick[][] testBoard;
-    /*private List<Brick> brickList;
-
-    public List<Brick> getBrickList() {
-        return brickList;
-    }
-
-    public void setBrickList(List<Brick> brickList) {
-        this.brickList = brickList;
-    }*/
 
     public Brick[][] getBoard() {
         return board;
@@ -38,15 +26,6 @@ public class BrickBoard extends JPanel {
                 counter++;
             }
         }
-
-        testBoard = new Brick[ROW][COLUMN];
-        int counter2 = 0;
-        for (int i = 0; i < ROW; i++) {
-            for (int j = 0; j < COLUMN; j++) {
-                testBoard[i][j] = new Brick(Values.values()[counter2], i, j);
-                counter2++;
-            }
-        }
     }
 
     public void shuffle() {
@@ -58,14 +37,11 @@ public class BrickBoard extends JPanel {
                 counter++;
             }
         }
-        // Set the last brick to null because it's an empty space
-        //board[ROW - 1][COLUMN - 1] = null;
 
         // Shuffles the board
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COLUMN; j++) {
                 exchangeBricks(i, j, (int)(Math.random() * ROW), (int)(Math.random() * COLUMN));
-                //System.out.println(board[i][j]);
             }
         }
     }
@@ -76,21 +52,6 @@ public class BrickBoard extends JPanel {
         Values tempValue = board[row][column].getValue();
         board[row][column].setValue(board[row2][column2].getValue());
         board[row2][column2].setValue(tempValue);
-
-        /*// Temporarily store the first brick and its positions
-        Brick temp = board[row][column];
-        tempX = temp.getPosX();
-        tempY = temp.getPosY();
-        // Set the temporary brick's positions from the second brick
-        temp.setPosX(board[row2][column2].getPosX());
-        temp.setPosY(board[row2][column2].getPosY());
-        // Move the second brick's place to the first brick
-        board[row][column] = board[row2][column2];
-        // Set the temporarily stored positions to the moved brick
-        board[row][column].setPosX(tempX);
-        board[row][column].setPosY(tempY);
-        // Move the first brick's place to the second brick
-        board[row2][column2] = temp;*/
     }
 
     public boolean moveBrick(Brick brick) {

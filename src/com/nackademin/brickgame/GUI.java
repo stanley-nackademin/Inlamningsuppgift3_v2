@@ -49,27 +49,10 @@ public class GUI extends JPanel {
         Brick b = (Brick)event.getSource();
         if (board.moveBrick(b)) {
             drawBoard();
-            //board.checkSolution(board.getBoard());
         }
 
         System.out.println(b.getValue());
         //System.out.println(board.checkSolution(board.getBoard()));
-
-
-        //System.out.println(board.checkSolution(board.testBoard));
-
-        /*for (int i = 0; i < board.ROW; i++) {
-            for (int j = 0; j < board.COLUMN; j++) {
-                System.out.println(board.testBoard[i][j]);
-            }
-        }
-
-        System.out.println("\n----------------------");
-        for (int i = 0; i < board.ROW; i++) {
-            for (int j = 0; j < board.COLUMN; j++) {
-                System.out.println(board.solutionBoard[i][j]);
-            }
-        }*/
     }
 
     public void drawBoard() {
