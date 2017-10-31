@@ -1,6 +1,7 @@
 package com.nackademin.brickgame;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Brick extends JButton {
     private Values value;
@@ -35,11 +36,14 @@ public class Brick extends JButton {
         this.value = value;
         this.posX = posX;
         this.posY = posY;
+        this.setText(value.toString());
+        this.setPreferredSize(new Dimension(100, 100));
+        this.setFont(new Font("Arial", Font.PLAIN, 20));
     }
 
     @Override
     public String toString() {
         return "Brick value is: " + value.getValue() +
-                "Positions is x: " + posX + " y: " + posY;
+                "\nPositions is x: " + posX + " y: " + posY;
     }
 }

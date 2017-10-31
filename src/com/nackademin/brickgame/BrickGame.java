@@ -9,6 +9,8 @@ public class BrickGame extends JFrame {
 
     BrickGame() {
         this.setTitle("Brick matching game");
+        this.setPreferredSize(new Dimension(500, 500));
+        this.setResizable(false);
         this.setContentPane(new GUI());
         this.pack();
         this.setLocationRelativeTo(null);
