@@ -7,6 +7,7 @@ public class BrickBoard extends JPanel {
     protected final static int ROW = 4;
     protected final static int COLUMN = 4;
     private Brick[][] board;
+    private Brick[][] solutionBoard;
     /*private List<Brick> brickList;
 
     public List<Brick> getBrickList() {
@@ -25,6 +26,16 @@ public class BrickBoard extends JPanel {
     BrickBoard() {
         board = new Brick[ROW][COLUMN];
         shuffle();
+
+        // Create solution board to compare with
+        solutionBoard = new Brick[ROW][COLUMN];
+        int counter = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COLUMN; j++) {
+                solutionBoard[i][j] = new Brick(Values.values()[counter], i, j);
+                counter++;
+            }
+        }
     }
 
     public void shuffle() {

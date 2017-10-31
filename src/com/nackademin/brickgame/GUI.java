@@ -2,6 +2,7 @@ package com.nackademin.brickgame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class GUI extends JPanel {
 
@@ -22,6 +23,7 @@ public class GUI extends JPanel {
         // Add bricks to board
         for (int i = 0; i < board.ROW; i++) {
             for (int j = 0; j < board.COLUMN; j++) {
+                board.getBoard()[i][j].addActionListener(ae -> brickClick(ae));
                 board.add(board.getBoard()[i][j]);
             }
         }
@@ -43,10 +45,16 @@ public class GUI extends JPanel {
         board.removeAll();
         for (int i = 0; i < board.ROW; i++) {
             for (int j = 0; j < board.COLUMN; j++) {
+                board.getBoard()[i][j].addActionListener(ae -> brickClick(ae));
                 board.add(board.getBoard()[i][j]);
             }
         }
         board.revalidate();
         board.repaint();
+    }
+
+    public void brickClick(ActionEvent event) {
+        Brick b = (Brick)event.getSource();
+        System.out.println(b.getValue());
     }
 }
