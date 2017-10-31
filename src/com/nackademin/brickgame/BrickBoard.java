@@ -1,6 +1,7 @@
 package com.nackademin.brickgame;
 
 import javax.swing.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class BrickBoard extends JPanel {
@@ -8,6 +9,7 @@ public class BrickBoard extends JPanel {
     protected final static int COLUMN = 4;
     private Brick[][] board;
     private Brick[][] solutionBoard;
+    protected Brick[][] testBoard;
     /*private List<Brick> brickList;
 
     public List<Brick> getBrickList() {
@@ -36,9 +38,19 @@ public class BrickBoard extends JPanel {
                 counter++;
             }
         }
+
+        testBoard = new Brick[ROW][COLUMN];
+        int counter2 = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COLUMN; j++) {
+                testBoard[i][j] = new Brick(Values.values()[counter2], i, j);
+                counter2++;
+            }
+        }
     }
 
     public void shuffle() {
+        // Setup a new board
         int counter = 0;
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COLUMN; j++) {
@@ -49,6 +61,7 @@ public class BrickBoard extends JPanel {
         // Set the last brick to null because it's an empty space
         //board[ROW - 1][COLUMN - 1] = null;
 
+        // Shuffles the board
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COLUMN; j++) {
                 exchangeBricks(i, j, (int)(Math.random() * ROW), (int)(Math.random() * COLUMN));
@@ -58,8 +71,40 @@ public class BrickBoard extends JPanel {
     }
 
     public void exchangeBricks(int row, int column, int row2, int column2) {
+        int tempX, tempY;
+
+        // Temporarily store the first brick and its positions
         Brick temp = board[row][column];
+        tempX = temp.getPosX();
+        tempY = temp.getPosY();
+        // Set the temporary brick's positions from the second brick
+        temp.setPosX(board[row2][column2].getPosX());
+        temp.setPosY(board[row2][column2].getPosY());
+        // Move the second brick's place to the first brick
         board[row][column] = board[row2][column2];
+        // Set the temporarily stored positions to the moved brick
+        board[row][column].setPosX(tempX);
+        board[row][column].setPosY(tempY);
+        // Move the first brick's place to the second brick
         board[row2][column2] = temp;
+    }
+
+    public void isValidMovement() {
+
+    }
+
+    public boolean checkSolution(Brick[][] board) {
+        Brick b1, b2;
+
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COLUMN; j++) {
+                b1 = board[i][j];
+                b2 = solutionBoard[i][j];
+                if (!(b1.getValue() == b2.getValue())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

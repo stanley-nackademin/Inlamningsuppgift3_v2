@@ -56,5 +56,20 @@ public class GUI extends JPanel {
     public void brickClick(ActionEvent event) {
         Brick b = (Brick)event.getSource();
         System.out.println(b.getValue());
+        System.out.println(board.checkSolution(board.getBoard()));
+        //System.out.println(board.checkSolution(board.testBoard));
+
+        /*for (int i = 0; i < board.ROW; i++) {
+            for (int j = 0; j < board.COLUMN; j++) {
+                System.out.println(board.testBoard[i][j]);
+            }
+        }
+
+        System.out.println("\n----------------------");
+        for (int i = 0; i < board.ROW; i++) {
+            for (int j = 0; j < board.COLUMN; j++) {
+                System.out.println(board.solutionBoard[i][j]);
+            }
+        }*/
     }
 }
