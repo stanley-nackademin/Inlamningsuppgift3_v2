@@ -14,6 +14,7 @@ public class Brick extends JButton {
 
     public void setValue(Values value) {
         this.value = value;
+        this.setText(value.toString());
     }
 
     public int getPosX() {

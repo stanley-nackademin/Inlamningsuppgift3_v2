@@ -42,21 +42,20 @@ public class GUI extends JPanel {
     public void newGame() {
         System.out.println("Nytt spel klickades");
         board.shuffle();
-        board.removeAll();
-        for (int i = 0; i < board.ROW; i++) {
-            for (int j = 0; j < board.COLUMN; j++) {
-                board.getBoard()[i][j].addActionListener(ae -> brickClick(ae));
-                board.add(board.getBoard()[i][j]);
-            }
-        }
-        board.revalidate();
-        board.repaint();
+        drawBoard();
     }
 
     public void brickClick(ActionEvent event) {
         Brick b = (Brick)event.getSource();
+        if (board.moveBrick(b)) {
+            drawBoard();
+            //board.checkSolution(board.getBoard());
+        }
+
         System.out.println(b.getValue());
-        System.out.println(board.checkSolution(board.getBoard()));
+        //System.out.println(board.checkSolution(board.getBoard()));
+
+
         //System.out.println(board.checkSolution(board.testBoard));
 
         /*for (int i = 0; i < board.ROW; i++) {
@@ -71,5 +70,18 @@ public class GUI extends JPanel {
                 System.out.println(board.solutionBoard[i][j]);
             }
         }*/
+    }
+
+    public void drawBoard() {
+        board.removeAll();
+
+        for (int i = 0; i < board.ROW; i++) {
+            for (int j = 0; j < board.COLUMN; j++) {
+                board.getBoard()[i][j].addActionListener(ae -> brickClick(ae));
+                board.add(board.getBoard()[i][j]);
+            }
+        }
+        board.revalidate();
+        board.repaint();
     }
 }

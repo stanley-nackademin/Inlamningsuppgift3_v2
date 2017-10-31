@@ -70,10 +70,14 @@ public class BrickBoard extends JPanel {
         }
     }
 
-    public void exchangeBricks(int row, int column, int row2, int column2) {
+    private void exchangeBricks(int row, int column, int row2, int column2) {
         int tempX, tempY;
 
-        // Temporarily store the first brick and its positions
+        Values tempValue = board[row][column].getValue();
+        board[row][column].setValue(board[row2][column2].getValue());
+        board[row2][column2].setValue(tempValue);
+
+        /*// Temporarily store the first brick and its positions
         Brick temp = board[row][column];
         tempX = temp.getPosX();
         tempY = temp.getPosY();
@@ -86,11 +90,47 @@ public class BrickBoard extends JPanel {
         board[row][column].setPosX(tempX);
         board[row][column].setPosY(tempY);
         // Move the first brick's place to the second brick
-        board[row2][column2] = temp;
+        board[row2][column2] = temp;*/
     }
 
-    public void isValidMovement() {
+    public boolean moveBrick(Brick brick) {
+        int x = brick.getPosX();
+        int y = brick.getPosY();
 
+        if (isValidMovement(x, y, -1, 0)) {
+            if (isEmpty(x, y, -1, 0)) {
+                exchangeBricks(brick.getPosX(), brick.getPosY(), brick.getPosX() - 1, brick.getPosY());
+                return true;
+            }
+        }
+        if (isValidMovement(x, y, 1, 0)) {
+            if (isEmpty(x, y, 1, 0)) {
+                exchangeBricks(brick.getPosX(), brick.getPosY(), brick.getPosX() + 1, brick.getPosY());
+                return true;
+            }
+        }
+        if (isValidMovement(x, y, 0, -1)) {
+            if (isEmpty(x, y, 0, -1)) {
+                exchangeBricks(brick.getPosX(), brick.getPosY(), brick.getPosX(), brick.getPosY() - 1);
+                return true;
+            }
+        }
+        if (isValidMovement(x, y, 0, 1)) {
+            if (isEmpty(x, y, 0, 1)) {
+                exchangeBricks(brick.getPosX(), brick.getPosY(), brick.getPosX(), brick.getPosY() + 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidMovement(int x, int y, int xDelta, int yDelta) {
+        return x + xDelta >= 0 && x + xDelta < ROW && y + yDelta >= 0 && y + yDelta < COLUMN;
+    }
+
+    private boolean isEmpty(int x, int y, int xDelta, int yDelta) {
+        Brick b = getBoard()[x + xDelta][y + yDelta];
+        return b.getValue().getValue() == 0;
     }
 
     public boolean checkSolution(Brick[][] board) {
