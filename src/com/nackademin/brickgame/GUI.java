@@ -40,7 +40,6 @@ public class GUI extends JPanel {
     }
 
     public void newGame() {
-        System.out.println("Nytt spel klickades");
         board.shuffle();
         drawBoard();
     }
@@ -48,8 +47,14 @@ public class GUI extends JPanel {
     public void brickClick(ActionEvent event) {
         Brick b = (Brick)event.getSource();
         if (board.moveBrick(b)) {
-            drawBoard();
-            //board.checkSolution(board.getBoard());
+            if (board.checkSolution(board.getBoard())) {
+                JOptionPane.showMessageDialog(null, "Du har vunnit!", "Seger!",
+                        JOptionPane.INFORMATION_MESSAGE);
+                Component[] components = board.getComponents();
+                for (Component c : components) {
+                    c.setEnabled(false);
+                }
+            }
         }
 
         System.out.println(b.getValue());
