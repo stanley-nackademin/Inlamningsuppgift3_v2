@@ -47,8 +47,6 @@ public class BrickBoard extends JPanel {
     }
 
     private void exchangeBricks(int row, int column, int row2, int column2) {
-        int tempX, tempY;
-
         Values tempValue = board[row][column].getValue();
         board[row][column].setValue(board[row2][column2].getValue());
         board[row2][column2].setValue(tempValue);
